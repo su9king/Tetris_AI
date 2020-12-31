@@ -1,5 +1,4 @@
 import pygame
-import block_image
 
 #SCREEN OPTION
 def set_screen(title,width,height):
