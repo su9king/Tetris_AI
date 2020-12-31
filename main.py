@@ -1,3 +1,9 @@
-#test
+import setting
+import Tetris_Option
 
-print("Adios`")
+
+program_run = True
+
+while program_run:
+
+    setting.set_screen("test",500,500)
