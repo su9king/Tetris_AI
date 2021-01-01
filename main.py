@@ -6,4 +6,4 @@ program_run = True
 
 while program_run:
 
-    setting.set_screen("test",500,500)
+    #setting.set_screen("test",500,500)
