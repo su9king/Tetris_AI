@@ -2,7 +2,7 @@ import pygame
 
 program_run = True
 
-#SCREEN OPTION
+# SETTING WINDOW NAME AND SIZE
 def set_window(title,width,height):
 
     global screen
@@ -11,6 +11,7 @@ def set_window(title,width,height):
 
     screen = pygame.display.set_mode((width,height))
 
+# WHEN USER GENERATE THE EVENT
 def get_event(event):
 
     global program_run
@@ -21,14 +22,16 @@ def get_event(event):
 
             program_run = False
 
-def set_board(board):
+# DRAWING OBJECT
+def draw_screen(board):
+
+    screen.blit(pygame.image.load("background.png"),(0,0))
 
     x = 0
     y = 0
     image = pygame.transform.scale(pygame.image.load("blue.png"),(32,32))
 
     for i in range(20):
-
 
         for j in range(10):
 
@@ -37,6 +40,7 @@ def set_board(board):
                 screen.blit(image,(x,y))
 
             x += 32
+
 
         x = 0
 

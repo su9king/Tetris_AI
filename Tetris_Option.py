@@ -191,11 +191,11 @@ def get_block( block_idx , rot ):
     return blocks_range
 
 
-#이걸로 블럭 표시할때 쓰일 함수가 될것임.
+#이걸로 블럭 색깔을 표시할때 쓰일 함수가 될것임.
 #def get_color(block_idx):
 
 
-def rot_range(block_idx):
+def rot_range(block_idx): #블럭마다 돌릴수 있는 경우의 수가 다르기 때문에 돌림값 범위 지정 함수
 
     if block_idx == 1:
 
@@ -211,33 +211,46 @@ def rot_range(block_idx):
 
     return rot_range
 
-def get_row_case(block_idx,rot,blocks):
-
+def get_col_case(block_idx,rot,blocks): # 해당 블럭이 한가지 행에 얼마나 많은 열에
+                                        # 놓을수 있는지 확인하는 함수
     if block_idx == 1:
 
-        row_case = 8
+        col_case = 8
 
     elif block_idx == 2:
 
         if rot == 1:
 
-            row_case = 9
+            col_case = 9
 
         elif rot == 2:
 
-            row_case = 6
+            col_case = 6
 
     elif block_idx >= 3:
 
         if blocks.shape == (2,3):
 
-            row_case = 7
+            col_case = 7
 
         else:
 
-            row_case = 8
+            col_case = 8
 
-    return row_case
+    return col_case
+
+
+def line_delete(board):
+
+    for i in range(20):
+
+        if board[i,:].sum() == 10:
+
+            board[1:i+1,:] = board[0:i,:]
+
+    return board
+
+
 
 
 
