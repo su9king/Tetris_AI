@@ -213,6 +213,7 @@ def rot_range(block_idx): #블럭마다 돌릴수 있는 경우의 수가 다르
 
 def get_col_case(block_idx,rot,blocks): # 해당 블럭이 한가지 행에 얼마나 많은 열에
                                         # 놓을수 있는지 확인하는 함수
+                                        # col_case : 한 행에서 설치 가능한 열의 개수
     if block_idx == 1:
 
         col_case = 8
@@ -249,6 +250,13 @@ def line_delete(board):
             board[1:i+1,:] = board[0:i,:]
 
     return board
+
+def check_set_point(type,part):
+
+    if type == "under":
+        pass
+
+
 
 
 

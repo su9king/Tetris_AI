@@ -16,43 +16,61 @@ while setting.program_run:
         block_idx = random.randint(1,7)
         rot_range = Tetris_Option.rot_range(block_idx)
 
-        block_set_clear = 0 #DID SET THE BLOCK? 0 : no / 1 : yes
+        block_set_case = 0
+        max_col_case = 10
 
 
         for i in range(rot_range):
             rot = i + 1
-            if block_set_clear == 0:
 
-                block = Tetris_Option.get_block(block_idx,rot) #GETTING BLOCK OF RANDOM
+            board_temp = np.copy(board)
+            block_set_case = 0
+            max_col_case = 10
+
+            if block_set_case < max_col_case:
+
+                block = Tetris_Option.get_block(block_idx,rot) #GETTING BLOCK
                 block_height, block_width = block.shape
                 max_col_case = Tetris_Option.get_col_case(block_idx, rot, block)  #HOW MUCH CAN TO SET COL BY YOUR BLOCK
 
+
                 for row in range(20 - block_height, 0, -1):
 
-                    for col in range(max_col_case + 1):
+                    if block_set_case < max_col_case:
 
-                        part = board[row: row + block_height , col: col + block_width] #보드에 블럭을 놓을 행렬 부분을 가져오기
+                        for col in range(max_col_case + 1):
 
-                        cel_mut = np.multiply(part,block)
+                            part = board[row: row + block_height , col: col + block_width] #보드에 블럭을 놓을 행렬 부분을 가져오기
 
-                        if cel_mut.sum() == 0 and block_set_clear == 0:# 블럭을 놓을 자리가 있다면
+                            cel_mut = np.multiply(part,block)
 
-                            board[row: row + block_height , col: col + block_width] += block
-                            block_set_clear = 1
-                            print(row, col)
-                            print(block)
+                            if cel_mut.sum() == 0 and block_set_case < max_col_case:# 블럭을 놓을 자리가 있다면
+
+                                board_temp[row: row + block_height , col: col + block_width] += block
+                                block_set_case += 1
+
+                                if row == 20 - block_height :#블럭이 맨 아래 행에 놓였다면
+
+                                    cost = Tetris_Option.check_set_point("under",board_temp[row: row + block_height ,
+                                                                                 col: col + block_width])
+                                    board_temp = np.copy(board)
+
+                                else:
+
+                                    cost = Tetris_Option.check_set_point("default",board_temp[row - 1 : row + block_height ,
+                                                                         col: col + block_width])
+                                    board_temp = np.copy(board)
 
 
-                        else:
-                            pass
+                            else:
+                                pass
 
 
         setting.get_event(pygame.event.get())
-        Tetris_Option.line_delete(board)
-        setting.draw_screen(board)
+        setting.draw_screen(Tetris_Option.line_delete(board))
         i = 0
 
-    i += 0.01
+    i += 0.05
 
 
 
