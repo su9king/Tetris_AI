@@ -14,13 +14,15 @@ def set_window(title,width,height):
 # WHEN USER GENERATE THE EVENT
 def get_event(event):
 
-    global program_run
+    global program_run,mouse_click
 
-    for i in event:
+    for e in event:
 
-        if i.type == pygame.QUIT:
+        if e.type == pygame.QUIT:
 
             program_run = False
+
+
 
 # DRAWING OBJECT
 def draw_screen(board):

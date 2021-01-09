@@ -251,10 +251,15 @@ def line_delete(board):
 
     return board
 
-def check_set_point(type,part):
+def check_set_point(part):
 
-    if type == "under":
-        pass
+    height,width = part.shape
+    value = 0
+
+    return value
+
+
+
 
 
 
