@@ -255,8 +255,42 @@ def check_set_point(part):
 
     height,width = part.shape
     value = 0
+    hole_value = 0
 
-    return value
+    for i in range(height-1,-1,-1):#맨 아래부터 위까지 쭉 스캔
+
+        if i == height - 1 : #선택된 행이 블럭의 가장 아래부분이라면
+
+            if part[i,:].sum() == width:#i 행 부분이 완벽할때
+
+                value += width
+
+            else:
+                value = part[i,:].sum()
+
+        else:
+
+            if part[i,:].sum() == width:
+
+                value += width
+
+    #블럭을 설치했을때 빈공간이 생기는걸 확인하는 부분
+    for i in range(height-1):
+        for j in range(width):
+
+            if part[i,j] == 1 and part[i+1,j] == 0:
+
+                print("최악의 수 입니다.")
+                hole_value = 6
+                break
+
+        if hole_value == 6:
+
+            break
+
+
+
+    return value - hole_value
 
 
 

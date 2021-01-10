@@ -5,20 +5,21 @@ import random
 import numpy as np
 
 board = np.zeros([20,10])
-board[19,0:9] = 1
-print(board)
+board[19,:] = 1
 setting.set_window("test",320,640)
+test = 0
 
 t = 0
 
 while setting.program_run:
 
-    if t >= 800000: #TO CONTROL THE RUNNING SPEED
+    if t >= 80000: #TO CONTROL THE RUNNING SPEED
 
         block_idx = random.randint(1,7) #블럭의 형태 설정
         rot_range = Tetris_Option.rot_range(block_idx) #블럭의 돌릴수 있는 경우의 수 설정
 
-        efficiency = 0 #현재 블럭 위치의 점수
+        efficiency = -50 #현재 블럭 위치의 점수
+
 
         for i in range(rot_range):
             rot = i + 1
@@ -28,6 +29,7 @@ while setting.program_run:
 
             block_set_count = 0 # 블럭을 놓은 횟수
 
+
             block = Tetris_Option.get_block(block_idx, rot)  # GETTING BLOCK
             block_height, block_width = block.shape
             max_col_case = Tetris_Option.get_col_case(block_idx, rot, block)  # HOW MUCH CAN TO SET COL BY
@@ -35,7 +37,7 @@ while setting.program_run:
 
             for row in range(20 - block_height, 0, -1):
 
-                if block_set_count < max_col_case:
+                if block_set_count < 30:
 
                     for col in range(max_col_case + 1):
 
@@ -48,9 +50,10 @@ while setting.program_run:
                             board_temp[row: row + block_height , col: col + block_width] += block
                             block_set_count += 1
 
-                            if efficiency < Tetris_Option.check_set_point(board_temp[row : row + block_height + 1,col: col + block_width]):
+
+                            if efficiency < Tetris_Option.check_set_point(board_temp[row : row + block_height + 1,col: col + block_width + 1]):
                             #전 블럭의 위치가 현재 블럭 위치 점수보다 낮다면
-                                efficiency = Tetris_Option.check_set_point(board_temp[row : row + block_height + 1,col: col + block_width])
+                                efficiency = Tetris_Option.check_set_point(board_temp[row : row + block_height + 1,col: col + block_width + 1])
                                 board_goal = np.copy(board_temp)
                                 board_temp = np.copy(board)
 
@@ -59,8 +62,8 @@ while setting.program_run:
 
 
 
-
-
+        test += 1
+        print(test)
         board = np.copy(board_goal)
 
         setting.get_event(pygame.event.get())
