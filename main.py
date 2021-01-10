@@ -24,8 +24,8 @@ while setting.program_run:
         for i in range(rot_range):
             rot = i + 1
 
-            board_temp = np.copy(board)
-            board_goal = np.copy(board)
+            board_temp = np.copy(board) #비교 분석을 위한 보드
+            board_goal = np.copy(board) #비교 분석후 잠시 가장 효율적인 블럭을 저장을 해둘 보드
 
             block_set_count = 0 # 블럭을 놓은 횟수
 
@@ -37,9 +37,9 @@ while setting.program_run:
 
             for row in range(20 - block_height, 0, -1):
 
-                if block_set_count < 30:
+                if block_set_count < max_col_case:
 
-                    for col in range(max_col_case + 1):
+                    for col in range(max_col_case):
 
                         part = board[row: row + block_height , col: col + block_width] #보드에 블럭을 놓을 행렬 부분을 가져오기
 
@@ -60,11 +60,7 @@ while setting.program_run:
                             else:
                                 board_temp = np.copy(board)
 
-
-
-        test += 1
-        print(test)
-        board = np.copy(board_goal)
+        board = np.copy(board_goal) #가장 효율적이었던 블럭을 최종 보드로 가져오기
 
         setting.get_event(pygame.event.get())
         setting.draw_screen(Tetris_Option.line_delete(board))

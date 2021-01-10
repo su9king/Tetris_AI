@@ -241,7 +241,7 @@ def get_col_case(block_idx,rot,blocks): # 해당 블럭이 한가지 행에 얼�
     return col_case
 
 
-def line_delete(board):
+def line_delete(board): #한 줄을 다채웠을때 제거하는 함수
 
     for i in range(20):
 
@@ -251,7 +251,7 @@ def line_delete(board):
 
     return board
 
-def check_set_point(part):
+def check_set_point(part): #블럭 효율점수 분석 함수 (개선 필요.)
 
     height,width = part.shape
     value = 0
